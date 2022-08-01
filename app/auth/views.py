@@ -1,6 +1,6 @@
 # flask
 from flask import render_template, redirect, url_for, session, flash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, login_required, logout_user
 
 # Directory
 from . import auth
@@ -45,3 +45,11 @@ def login():
             flash('Warning! El usuario no existe', 'alert alert-warning alert-dismissible')
 
     return render_template("login.html", **context)
+
+
+@auth.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Vuelve pronto", "alert alert-info alert-dismissible")
+    return redirect(url_for("index"))

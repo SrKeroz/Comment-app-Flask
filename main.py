@@ -25,7 +25,9 @@ def not_found(error):
 
 @app.route("/")
 def index():
-    username = current_user.id
+    username = None
+    if username is not None:
+        username = current_user.id
     context={
         "todos": todos,
         "username": username,
