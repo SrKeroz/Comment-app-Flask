@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title> 404 </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet"
+      href="{{url_for('static', filename='css/404.css')}}">
+</head>
+
+<body class="rails-default-error-page">
+<section>
+    <figure>
+        <img src="{{ url_for('static', filename='images/404-full.svg') }}" width="785" height="370">
+    </figure>
+<header>
+    <h1>404</h1>
+    <h2>Hey captain! looks like you're heading to a wrong planet</h2>
+    <a href="/" class="btn-solid">Take me back to the homepage</a>
+</header>
+</section>
+</body>
+</html>
