@@ -1,5 +1,6 @@
 # flask
 from flask import Flask, render_template, url_for, redirect, session, request, flash
+from flask_login import current_user
 
 # module
 from app import create_app
@@ -9,7 +10,7 @@ from app.forms import UserLogin
 
 
 #firesbase
-from app.firestore_service import get_user
+from app.firestore_service import get_users
 from app.firestore_service import get_comment
 
 
@@ -24,7 +25,7 @@ def not_found(error):
 
 @app.route("/")
 def index():
-    username = session.get("username")
+    username = current_user.id
     context={
         "todos": todos,
         "username": username,
@@ -32,7 +33,7 @@ def index():
 
     }
 
-    for user in get_user():
+    for user in get_users():
         print(user)
 
 
