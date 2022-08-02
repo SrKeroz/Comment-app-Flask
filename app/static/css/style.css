@@ -4,6 +4,10 @@
   overflow: hidden;
 }
 
+.topnav .right{
+  float: right
+}
+
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;

@@ -1,0 +1,31 @@
+{% macro render_comment(comment, user_id) %}
+
+<div class="comment-container theme--light">
+    <div class="comments" >
+      <div  >
+        <div  class="card v-card v-sheet theme--light elevation-2">
+          <div  class="header">
+            <div  class="v-avatar avatar" style="height: 50px; width: 50px;"><img  src="https://images.unsplash.com/photo-1490894641324-cfac2f5cd077?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=100&q=70"></div>
+            <span  class="displayName title"><a href="#" target="_blank">{{user_id | capitalize}}</a></span> <span hidden="true" class="displayName caption">2 days ago</span></div>
+          <!---->
+          <div  class="wrapper comment">
+            <p>{{ comment.to_dict().comment }}</p>
+          </div>
+          <div  class="actions">
+            Borrar
+            actualizar
+            <!---->
+          </div>
+          
+          <div  class="v-dialog__container" style="display: block;"></div>
+        </div>
+        <!---->
+        <div  class="answers">
+          <!---->
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+{% endmacro %}

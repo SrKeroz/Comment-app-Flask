@@ -3,10 +3,16 @@
 
 <div class="topnav" id="myTopnav">
   <a href="/" class="active">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
   {% if current_user.is_authenticated %}
-    <a href="{{url_for('auth.logout')}}">Logout</a>
+    <a href="{{url_for('profile.my_profile')}}">My profile</a>
+    <div class="right">
+      <a href="{{url_for('auth.logout')}}">Logout</a>
+    </div>
+  {% endif %}
+  {%if current_user.is_anonymous%}
+  <div class="right">
+    <a href="{{url_for('auth.login')}}">login</a>
+  </div>
   {% endif %}
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>

@@ -1,8 +1,16 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block title %}
     {{ super() }}
     {{username}}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/comment.css')}}">
+
 {% endblock %}
 
 {% block content %}
@@ -11,9 +19,11 @@
     <h1>hola {{ username }}</h1>
 {% endif %}
 
+
+<!--todos-->
 <ul>
     {% for todo in get_comment %}
-        <li>{{ todo.to_dict().comment }}</li>
+        {{macros.render_comment(todo, username)}}
     {% endfor %}
 </ul>
 {% endblock %}

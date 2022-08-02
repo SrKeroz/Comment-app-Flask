@@ -1,20 +1,34 @@
 {% extends "base.html" %}
+{% import 'macros.html' as macros %}
 
 {% block title %}
     {{ super() }}
     Home
 {% endblock %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/comment.css')}}">
+
+{% endblock %}
+
 
 {% block content %}
 
-{% if username %}
-    <h1>hola {{ username }}</h1>
+{% if current_user %}
+    <h1>hola {{ current_user.id }}</h1>
 {% endif %}
 
+
+
+    
+
+
+<!--todos-->
 <ul>
     {% for todo in get_comment %}
-        <li>{{ todo.to_dict().comment }}</li>
+        <li>{{ todo }}</li>
     {% endfor %}
 </ul>
 {% endblock %}

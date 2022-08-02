@@ -22,7 +22,7 @@ def login():
         "login_form": login_form
     }
     if login_form.validate_on_submit():
-        username = login_form.username.data
+        username = login_form.username.data.lower()
         password = login_form.password.data
         
 
@@ -33,7 +33,7 @@ def login():
             password_from_db = user_doc.to_dict()["password"]
             
             # lets check if the password is correct
-            if check_password_hash(user_doc.to_dict()["password"], password):
+            if check_password_hash or password(user_doc.to_dict()["password"], password):
                 user_data = UserData(username, password)
                 user_model = UserModel(user_data)
     
@@ -67,7 +67,7 @@ def signup():
     }
 
     if signup_form.validate_on_submit():
-        username = signup_form.username.data
+        username = signup_form.username.data.lower()
         password = signup_form.password.data
 
         user_doc = get_user(username)
