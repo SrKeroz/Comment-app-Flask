@@ -18,5 +18,12 @@ def get_users():
 def get_user(user_id):
     return db.collection("users").document(user_id).get()
 
+def register_user(user_data):
+    ref = db.collection("users").document(user_data.username)
+    ref.set({"password": user_data.password})
+
+
+
+# comment ----------------------------------------------------------------
 def get_comment(user_id):
     return db.collection("users").document(user_id).collection("frases").get()

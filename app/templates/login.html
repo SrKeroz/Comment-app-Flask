@@ -7,14 +7,14 @@
 {% endblock %}
 
 
-{% block head %}
+
 {% block styles %}
   {{ super() }}
 <link rel="stylesheet"
       href="{{url_for('static', filename='css/login.css')}}">
 
 {% endblock %}
-{% endblock %}
+
 
 {% block content %}
   <div class="login">
@@ -24,7 +24,7 @@
         {{ login_form.username(placeholder="username")}}
         {{ login_form.password(placeholder="password") }}
         {{ login_form.submit(class="btn btn-primary btn-block btn-large") }}
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
+        <p class="message">Not registered? <a href="{{url_for('auth.signup')}}">Create an account</a></p>
       </form>
   </div>
 {% endblock %}
