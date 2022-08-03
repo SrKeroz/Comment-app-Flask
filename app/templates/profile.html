@@ -10,6 +10,8 @@
 {{ super() }}
 <link rel="stylesheet"
       href="{{url_for('static', filename='css/comment.css')}}">
+      <link rel="stylesheet"
+      href="{{url_for('static', filename='css/commentarea.css')}}">
 
 {% endblock %}
 
@@ -42,17 +44,37 @@
 
 
 <!--todos-->
-<ul>
     {% for todo in get_comment %}
-        {{macros.render_comment(todo, username, current_user)}}
+    <div class="comment-container theme--light">
+        <div class="comments" >
+          <div  >
+            {{ macros.render_comment(todo, username)}}
+              <div  class="actions">
+                {% if username == current_user.id %}
+                <div class="buttons-center">
+                    <a href="{{url_for('profile.delete_comment', comment_id=todo.id)}}">Delete</a>
+                    <a href="{{url_for('index')}}"><button id="button-accept">Update</button></a>
+                  </div>
+                  {% endif %}
+                <!---->
+              </div>
+              
+              <div  class="v-dialog__container" style="display: block;"></div>
+            </div>
+            <!---->
+            <div  class="answers">
+              <!---->
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
     {% endfor %}
-</ul>
+
 {% endblock %}
-
-
-
 
 {% block scripts %}
 {{super()}}
 <script src="{{url_for('static', filename='scripts.js')}}"></script>
+
 {% endblock %}

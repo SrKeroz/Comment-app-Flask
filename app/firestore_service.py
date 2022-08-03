@@ -26,10 +26,16 @@ def register_user(user_data):
 
 # comment ----------------------------------------------------------------
 def get_comment(user_id):
-    return db.collection("users").document(user_id).collection("frases").get()
+    ref = db.collection("users").document(user_id).collection("frases").order_by(
+    'comment', direction=firestore.Query.DESCENDING)
+    return ref.get()
 
 def add_comment(user_id, comment):
     comment_collection_ref = db.collection("users").document(user_id).collection("frases")
     comment_collection_ref.add({"comment": comment})
+
+def delete_comments(user_id, comment_id):
+    comment_collection_ref = db.collection("users").document(user_id).collection("frases").document(comment_id)
+    comment_collection_ref.delete()
     
 

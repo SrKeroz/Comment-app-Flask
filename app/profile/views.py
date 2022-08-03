@@ -10,6 +10,7 @@ from flask_login import login_required, current_user
 from app.firestore_service import get_comment
 from app.firestore_service import get_user
 from app.firestore_service import add_comment
+from app.firestore_service import delete_comments
 
 from . import profile
 
@@ -20,18 +21,15 @@ def my_profile():
     return redirect(url_for("profile.profile", user_id=user_id))
     
 
-@profile.route("/profile/comment", methods=["POST"])
-def public_comment():
-    public_post = PublicPost()
-    context = {
-        "public_post": public_post
-    }
+@profile.route("/profile/comment/delete/<comment_id>", methods=["GET","POST"])
+def delete_comment(comment_id):
+    user_id = current_user.id
+    delete_comments(user_id, comment_id)
 
+    flash("comment elimina con exito")
 
-    if public_post.validate_on_submit():
+    return redirect(url_for("profile.profile", user_id=user_id))
 
-        add_comment()
-        return redirect(url_for('index.html'))
 
 
 
