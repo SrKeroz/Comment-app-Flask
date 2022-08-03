@@ -27,3 +27,9 @@ def register_user(user_data):
 # comment ----------------------------------------------------------------
 def get_comment(user_id):
     return db.collection("users").document(user_id).collection("frases").get()
+
+def add_comment(user_id, comment):
+    comment_collection_ref = db.collection("users").document(user_id).collection("frases")
+    comment_collection_ref.add({"comment": comment})
+    
+

@@ -23,15 +23,17 @@
 {% if username == current_user.id %}
 <h3 class="heading">Add A Comment Below</h3>
   <div class="container">
-    <form>
+    <form method="post">
+        {{ public_post.csrf_token }}
       <div class="form-group">
-        <textarea class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
+        {{public_post.comment(class="form-control status-box", rows="3", placeholder="Enter your comment here...")}}
       </div>
-    </form>
+    
     <div class="button-group pull-right">
       <p class="counter">250</p>
-      <a href="#" class="btn btn-primary">Post</a>
+      {{public_post.submit(class="btn btn-primary")}}
     </div>
+</form>
     <ul class="posts">
     </ul>
   </div>
@@ -42,7 +44,7 @@
 <!--todos-->
 <ul>
     {% for todo in get_comment %}
-        {{macros.render_comment(todo, username)}}
+        {{macros.render_comment(todo, username, current_user)}}
     {% endfor %}
 </ul>
 {% endblock %}

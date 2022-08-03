@@ -1,4 +1,4 @@
-{% macro render_comment(comment, user_id) %}
+{% macro render_comment(comment, user_id, current_user) %}
 
 <div class="comment-container theme--light">
     <div class="comments" >
@@ -12,8 +12,12 @@
             <p>{{ comment.to_dict().comment }}</p>
           </div>
           <div  class="actions">
-            Borrar
-            actualizar
+            {% if user_id == current_user.id %}
+            <div class="buttons-center">
+                <button id="button-cancel">Delete</button>
+                <button id="button-accept">Update</button>
+              </div>
+              {% endif %}
             <!---->
           </div>
           

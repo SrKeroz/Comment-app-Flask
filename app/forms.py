@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
@@ -13,3 +13,9 @@ class SignupForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired(),
     Length(min=8, max=64, message='Name length must be between %(min)d and %(max)dcharacters')])
     submit = SubmitField("Signup")
+
+class PublicPost(FlaskForm):
+    comment = TextAreaField("comment", validators=[DataRequired(),
+    Length(min=8, max=140, message='Name length must be between %(min)d and %(max)dcharacters')])
+    submit = SubmitField("Post")
+    
