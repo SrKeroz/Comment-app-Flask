@@ -8,8 +8,8 @@
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='css/comment.css')}}">
+      <link rel="stylesheet"
+      href="{{url_for('static', filename='css/modal.css')}}">
       <link rel="stylesheet"
       href="{{url_for('static', filename='css/commentarea.css')}}">
 
@@ -41,19 +41,34 @@
   </div>
 {% endif %}
 
-
+{% if not get_comment and username == current_user.id %}
+<br>
+<br>
+<br>
+    <div class="no-content">
+      <h1><u>You haven't commented yet.</u></h1>
+    </div>
+      {%endif%}
+{% if username != current_user.id and not get_comment %}
+<br>
+<br>
+<br>
+    <div class="no-content">
+      <h1><u>{{ username | capitalize }} has not commented yet.</u></h1>
+    </div>
+  {% endif %}
 
 <!--todos-->
-    {% for todo in get_comment %}
+    {% for comment in get_comment %}
     <div class="comment-container theme--light">
         <div class="comments" >
           <div  >
-            {{ macros.render_comment(todo, username)}}
+            {{ macros.render_comment(comment, username)}}
               <div  class="actions">
                 {% if username == current_user.id %}
                 <div class="buttons-center">
-                    <a href="{{url_for('profile.delete_comment', comment_id=todo.id)}}">Delete</a>
-                    <a href="{{url_for('index')}}"><button id="button-accept">Update</button></a>
+                    <a href="{{url_for('profile.delete_comment', comment_id=comment.id)}}">Delete</a>
+                    <a onclick="abrir_formulario()" href="{{url_for('profile.update_comment', comment_id=comment.id)}}"><button id="button-accept">Update</button></a>
                   </div>
                   {% endif %}
                 <!---->
@@ -70,6 +85,28 @@
         </div>
       </div>
     {% endfor %}
+
+
+<!-- Modal -->
+<div id="modal" class="modale" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+        <h2>Llena el formulario</h2>
+        <a onclick="cerrar_modale()" href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+        </div>
+        <div class="modal-body">
+            <textarea>{{comment}}</textarea>
+        <input id="txt_id" type="hidden" name="u" placeholder="ID" size="20" /><br>
+        </div>
+        <div class="modal-footer">
+    
+      
+            <a onclick="guardar_cliente()" href="#" class="btn" id="btn_ingresar">Edit comment</a>
+          </div>
+        </div>
+      </div>
+      <!-- /Modal -->
+
 
 {% endblock %}
 

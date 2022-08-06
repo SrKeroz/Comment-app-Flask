@@ -12,6 +12,7 @@ from app.forms import UserLogin
 #firesbase
 from app.firestore_service import get_users
 from app.firestore_service import get_comment
+from app.firestore_service import get_post
 
 
 app = create_app()
@@ -31,12 +32,13 @@ def index():
     context={
         "todos": todos,
         "username": username,
-        "get_comment": get_comment(user_id=username)
+        "get_comment": get_comment(user_id=username),
+        "get_post": get_post
 
     }
 
-    for user in get_users():
-        print(user)
+    for user in get_comment(username):
+        print(f'{user.id} => {user.to_dict()}')
 
 
     return render_template("index.html", **context)

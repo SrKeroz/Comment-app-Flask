@@ -18,4 +18,9 @@ class PublicPost(FlaskForm):
     comment = TextAreaField("comment", validators=[DataRequired(),
     Length(min=8, max=140, message='Name length must be between %(min)d and %(max)dcharacters')])
     submit = SubmitField("Post")
+
+class UpdatePost(FlaskForm):
+    comment_update = TextAreaField("comment", validators=[DataRequired(),
+    Length(min=8, max=140, message='Name length must be between %(min)d and %(max)dcharacters')])
+    submit = SubmitField("Post")
     

@@ -8,8 +8,8 @@
 
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet"
-      href="{{url_for('static', filename='css/comment.css')}}">
+      <link rel="stylesheet"
+      href="{{url_for('static', filename='css/modal.css')}}">
 
 {% endblock %}
 
@@ -30,8 +30,31 @@
 
 <!--todos-->
 <ul>
-    {% for todo in get_comment %}
-        <li>{{ todo }}</li>
+    {% for comment in get_post() %}
+    <div class="comment-container theme--light">
+        <div class="comments" >
+          <div  >
+            {{ macros.render_comment(comment, user_id=comment.to_dict()["user_id"])}}
+              <div  class="actions">
+                {% if comment.id == current_user.id %}
+                <div class="buttons-center">
+                    <a href="{{url_for('profile.delete_comment', comment_id=comment.id)}}">Delete</a>
+                    <a onclick="abrir_formulario()" href="{{url_for('profile.update_comment', comment_id=comment.id)}}"><button id="button-accept">Update</button></a>
+                  </div>
+                  {% endif %}
+                <!---->
+              </div>
+              
+              <div  class="v-dialog__container" style="display: block;"></div>
+            </div>
+            <!---->
+            <div  class="answers">
+              <!---->
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
     {% endfor %}
 </ul>
 {% endblock %}

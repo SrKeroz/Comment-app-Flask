@@ -76,3 +76,15 @@ var main = function() {
 }
 $('.btn').addClass('disabled');
 $(document).ready(main)
+
+
+// modal 
+function abrir_formulario(){
+  html_modal = document.getElementById("modal")
+  html_modal.classList.add("opened")
+}
+
+function cerrar_modale(){
+  html_modal = document.getElementById("modal")
+  html_modal.classList.remove("opened")
+}
