@@ -16,9 +16,11 @@
 
 {% block content %}
 
+<!--
 {% if username %}
     <h1>hola {{ username }}</h1>
 {% endif %}
+-->
 
 <!--add comment-area-->
 {% if username == current_user.id %}
@@ -106,12 +108,6 @@
     </div>
 <!-- /Modal -->
 
-{% for item in data %}
-<li>
-<button><span onclick=edit_user({{item}});>{{ item }}</span></button>
-</li>
-
-{% endfor %}
 
 {% endblock %}
 
