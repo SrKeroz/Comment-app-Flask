@@ -14,6 +14,7 @@ firebase_admin.initialize_app(cred, {
 
 db = firestore.client()
 
+# users ------------------------------------------------------------------
 def get_users():
     return db.collection('users').get()
 
@@ -56,8 +57,11 @@ def delete_comments(user_id, comment_id):
     comment_collection_ref.delete()
 
 
-def update_comments(user_id, comment_id):
+def update_comments(user_id, comment_id, comment):
     comment_collection_ref = db.collection("users").document(user_id).collection("frases").document(comment_id)
-    return comment_collection_ref.get()
+    comment_collection_ref.update({"comment": comment})
+
+    comment_collection_ref = db.collection("post").document(comment_id)
+    comment_collection_ref.update({"comment": comment})
     
 

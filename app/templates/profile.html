@@ -12,7 +12,6 @@
       href="{{url_for('static', filename='css/modal.css')}}">
       <link rel="stylesheet"
       href="{{url_for('static', filename='css/commentarea.css')}}">
-
 {% endblock %}
 
 {% block content %}
@@ -68,7 +67,7 @@
                 {% if username == current_user.id %}
                 <div class="buttons-center">
                     <a href="{{url_for('profile.delete_comment', comment_id=comment.id)}}">Delete</a>
-                    <a onclick="abrir_formulario()" href="{{url_for('profile.update_comment', comment_id=comment.id)}}"><button id="button-accept">Update</button></a>
+                    <a onclick='edit_user({{comment.to_dict()["comment"], comment.to_dict()["comment"]}}, {{comment.id, comment.id}})' href="#"><button id="button-accept">Edit</button></a>
                   </div>
                   {% endif %}
                 <!---->
@@ -86,29 +85,37 @@
       </div>
     {% endfor %}
 
-
 <!-- Modal -->
 <div id="modal" class="modale" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-header">
-        <h2>Llena el formulario</h2>
-        <a onclick="cerrar_modale()" href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
-        </div>
-        <div class="modal-body">
-            <textarea>{{comment}}</textarea>
-        <input id="txt_id" type="hidden" name="u" placeholder="ID" size="20" /><br>
-        </div>
-        <div class="modal-footer">
+  <div class="modal-dialog">
+      <div class="modal-header">
+      <h2>Llena el formulario</h2>
+      <a onclick="cerrar_modale()" href="#" class="btn-close closemodale" aria-hidden="true">&times;</a>
+      </div>
+      <div class="modal-body">
+          <textarea id="comment_txt"></textarea>
+          <input hidden="true" id="id_txt">
+      <input id="txt_id" type="hidden" name="u" placeholder="ID" size="20" /><br>
+      </div>
+      <div class="modal-footer">
+  
     
-      
-            <a onclick="guardar_cliente()" href="#" class="btn" id="btn_ingresar">Edit comment</a>
-          </div>
+          <a onclick="guardar_cliente()" href="#" class="btn" id="btn_ingresar">Edit comment</a>
         </div>
       </div>
-      <!-- /Modal -->
+    </div>
+<!-- /Modal -->
 
+{% for item in data %}
+<li>
+<button><span onclick=edit_user({{item}});>{{ item }}</span></button>
+</li>
+
+{% endfor %}
 
 {% endblock %}
+
+
 
 {% block scripts %}
 {{super()}}

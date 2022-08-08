@@ -1,5 +1,4 @@
-from xml.etree.ElementTree import Comment
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, json, request
 
 # Forms
 from app.forms import PublicPost, UpdatePost
@@ -33,13 +32,14 @@ def delete_comment(comment_id):
     return redirect(url_for("profile.profile", user_id=user_id))
 
 
-@profile.route("/profile/comment/update/<comment_id>")
-def update_comment(comment_id):
+@profile.route("/profile/comment/update/", methods=["POST"])
+def update_comment():
     user_id = current_user.id
-    comment = update_comments(user_id, comment_id)
-    print(comment.to_dict() ["comment"])
-
-    return render_template("edit.html", comment=comment)
+    comment = request.json["comment"]
+    id = request.json["id"]
+    update_comments(user_id, id, comment)
+    flash("Your comment has been updated successfully")
+    return redirect(url_for("profile.profile", user_id=user_id))
 
 
 
@@ -49,6 +49,7 @@ def profile(user_id):
     user_id = username.id
     public_post = PublicPost()
     update_post = UpdatePost
+
     context = {
         "get_comment": get_comment(user_id=user_id),
         "username": user_id,
@@ -56,9 +57,6 @@ def profile(user_id):
         "update_post": update_post
     }
     comment = public_post.comment.data
-
-    for todo in get_comment(user_id):
-        print(todo.id)
 
     if public_post.validate_on_submit():
         add_comment(user_id, comment)

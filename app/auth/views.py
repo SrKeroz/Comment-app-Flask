@@ -21,6 +21,10 @@ def login():
     context = {
         "login_form": login_form
     }
+    
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     if login_form.validate_on_submit():
         username = login_form.username.data.lower()
         password = login_form.password.data
@@ -40,12 +44,12 @@ def login():
                 login_user(user_model)
 
 
-                flash('Well done! Bienvenido', "alert alert-success alert-dismissible")
+                flash('Welcome!', "alert alert-success alert-dismissible")
                 return redirect(url_for("index"))
             else:
-                flash('Oops! Password incorrecto', 'alert alert-danger alert-dismissible')
+                flash('Oops! Wrong Password', 'alert alert-danger alert-dismissible')
         else:
-            flash('Warning! El usuario no existe', 'alert alert-warning alert-dismissible')
+            flash("Warning! The user doesn't exist", 'alert alert-warning alert-dismissible')
 
     return render_template("login.html", **context)
 
@@ -54,7 +58,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("Vuelve pronto", "alert alert-info alert-dismissible")
+    flash("Come Back soon!", "alert alert-info alert-dismissible")
     return redirect(url_for("index"))
 
 
@@ -65,6 +69,8 @@ def signup():
         "signup_form": signup_form
 
     }
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
 
     if signup_form.validate_on_submit():
         username = signup_form.username.data.lower()

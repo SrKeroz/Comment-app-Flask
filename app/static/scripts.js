@@ -88,3 +88,32 @@ function cerrar_modale(){
   html_modal = document.getElementById("modal")
   html_modal.classList.remove("opened")
 }
+
+function edit_user(comment, id) {
+  var comment = comment
+  var id = id
+  abrir_formulario()
+  document.getElementById('comment_txt').value = comment
+  document.getElementById('id_txt').value = id
+
+}
+
+async function guardar_cliente() {
+  var data = {
+    "comment": document.getElementById('comment_txt').value,
+    "id": document.getElementById('id_txt').value
+  }
+
+  var id_cliente = document.getElementById('id_txt').value
+
+
+  var url = "http://127.0.0.1:3000/p/profile/comment/update/"
+  await fetch(url, {
+    "method": 'POST',
+    "body": JSON.stringify(data),
+    "headers": {
+      "Content-Type": 'application/json'
+    }
+  })
+  window.location.reload();
+}
