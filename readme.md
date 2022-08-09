@@ -2,7 +2,7 @@
 
 **Description**
 
-> Simple page for manage todo tasks.
+> App to make your ideas and life experiences public.
 
 **Features**
 
